@@ -39,7 +39,7 @@ public class UserDaoImp implements UserDao {
          List<User> users = listUsers();
          User userByCar = listUsers().stream()
                  .filter(user -> user.getCar().equals(car))
-                 .findFirst()
+                 .findAny()
                  .orElse(null);
          return userByCar;
       }

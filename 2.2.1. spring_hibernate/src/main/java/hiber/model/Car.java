@@ -17,7 +17,7 @@ public class Car {
     private int series;
 
     @OneToOne(mappedBy = "car")
-    private User owner;
+    private User user;
 
     public Car() {
 
