@@ -29,20 +29,16 @@ public class UserDaoImp implements UserDao {
 
    @Override
    @SuppressWarnings("unchecked")
-   public User getUserByCar(String model, int series) {
-      TypedQuery<Car> getCar = sessionFactory.getCurrentSession().createQuery("from Car where model = :model and series = :series")
-              .setParameter("model", model)
-              .setParameter("series", series);
-      List<Car> carList = getCar.getResultList();
-      if (!carList.isEmpty()) {
-         Car car = carList.get(0);
-         List<User> users = listUsers();
-         User userByCar = listUsers().stream()
-                 .filter(user -> user.getCar().equals(car))
-                 .findAny()
-                 .orElse(null);
-         return userByCar;
-      }
-      return null;
+   public List<User> getUserByCar(String model, int series) {
+      String hqlQuery = "Select user from User as user " +
+              "left join user.car as car " +
+              "where car.model = :model and car.series = :series";
+
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hqlQuery, User.class);
+      query.setParameter("model", model);
+      query.setParameter("series", series);
+      return query.getResultList();
+
    }
+
 }
