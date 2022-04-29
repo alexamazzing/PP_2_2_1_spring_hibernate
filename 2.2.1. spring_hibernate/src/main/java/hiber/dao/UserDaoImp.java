@@ -29,7 +29,7 @@ public class UserDaoImp implements UserDao {
 
    @Override
    @SuppressWarnings("unchecked")
-   public List<User> getUserByCar(String model, int series) {
+   public User getUserByCar(String model, int series) {
       String hqlQuery = "Select user from User as user " +
               "left join user.car as car " +
               "where car.model = :model and car.series = :series";
@@ -37,7 +37,8 @@ public class UserDaoImp implements UserDao {
       TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hqlQuery, User.class);
       query.setParameter("model", model);
       query.setParameter("series", series);
-      return query.getResultList();
+      User user = query.getResultList().get(0);
+      return user;
 
    }
 

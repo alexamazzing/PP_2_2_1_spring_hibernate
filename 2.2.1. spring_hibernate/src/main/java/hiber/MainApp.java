@@ -40,10 +40,9 @@ public class MainApp {
             System.out.println();
         }
 
-        List<User> usersCar = userService.getUserByCar("Model2", 2);
-        for (User user : usersCar) {
-            System.out.println(user);
-        }
+
+        System.out.println(userService.getUserByCar("Model2", 2));
+
 
         context.close();
     }
